@@ -4,6 +4,7 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxG;
+	import org.flixel.FlxU;
 	import com.gskinner.utils.Rnd;
 	
 	public class LeafBit extends FlxSprite
@@ -41,16 +42,16 @@ package
 			var dir:int = Force / Math.abs(Force);
 			if (landed)
 			{
+				acceleration.y = weight;			
 				//if we landed, then we can only move if the wind is strong, and if we're not under another leaf
-				if (m > 2)
+				if (onScreen())
 				{
-					if (Rnd.boolean(0.3))
+					velocity.x = ((dir * m) * Rnd.float(0.65, 0.95));
+					if (m > 2)
 					{
-						var tP:FlxSprite = new FlxSprite(x, y - 1);
-						tP.createGraphic(1, 1, 0x00000000);
-						if (!tP.collide(PlayState.leafgrp))
+						if (Rnd.boolean(0.01))
 						{
-							velocity.y = -((dir * m) * Rnd.float( -0.15, 0.15));
+							velocity.y = -(m * Rnd.float(0.5, 0.75));
 							falling = true;
 							landed = false;
 						}
@@ -80,7 +81,7 @@ package
 			else
 			{
 				// if we're falling, the velocity can randomly change, but it's based on the wind.
-				velocity.x = ((dir * m) * Rnd.float(0.85, 1.15)) + Rnd.integer( -2, 2);;
+				velocity.x = ((dir * m) * Rnd.float(0.85, 1.15)) + Rnd.integer( -2, 2);
 				velocity.y += ((m * 0.5) * Rnd.float(-0.15, 0.15)) * Rnd.sign(0.3);
 			}
 			
@@ -110,6 +111,73 @@ package
 			super.update();
 		}
 		
+		
+		override public function hitTop(Contact:FlxObject, Velocity:Number):void
+		{
+			// we only want to land on top of the ground or other leaves that have landed.
+			var hit:Boolean = false;
+			if (Contact is LeafBit)
+			{
+				var f:LeafBit = Contact as LeafBit;
+				if (f.landed) hit = true;
+			}
+			else hit = true;
+			if (hit)
+			{
+				solid = true;
+				//moves = false;
+				super.hitTop(Contact, 0);
+				// when we do land on something, we stop our movement and set falling to false
+				velocity.x = 0;
+				falling = false;
+				landed = true;
+				
+			}
+		}
+		override public function hitRight(Contact:FlxObject, Velocity:Number):void
+		{
+			// we only want to land on top of the ground or other leaves that have landed.
+			var hit:Boolean = false;
+			if (Contact is LeafBit)
+			{
+				var f:LeafBit = Contact as LeafBit;
+				if (f.landed) hit = true;
+			}
+			else hit = true;
+			if (hit)
+			{
+				solid = true;
+				//moves = false;
+				super.hitRight(Contact, 0);
+				// when we do land on something, we stop our movement and set falling to false
+				velocity.x = 0;
+				falling = false;
+				landed = true;
+				
+			}
+		}
+		override public function hitLeft(Contact:FlxObject, Velocity:Number):void
+		{
+			// we only want to land on top of the ground or other leaves that have landed.
+			var hit:Boolean = false;
+			if (Contact is LeafBit)
+			{
+				var f:LeafBit = Contact as LeafBit;
+				if (f.landed) hit = true;
+			}
+			else hit = true;
+			if (hit)
+			{
+				solid = true;
+				//moves = false;
+				super.hitLeft(Contact, 0);
+				// when we do land on something, we stop our movement and set falling to false
+				velocity.x = 0;
+				falling = false;
+				landed = true;
+				
+			}
+		}
 		override public function hitBottom(Contact:FlxObject, Velocity:Number):void
 		{
 			// we only want to land on top of the ground or other leaves that have landed.
@@ -117,17 +185,22 @@ package
 			if (Contact is LeafBit)
 			{
 				var f:LeafBit = Contact as LeafBit;
-				if (!f.landed) hit = true;
+				if (f.landed) hit = true;
 			}
 			else hit = true;
 			if (hit)
 			{
+				solid = true;
+				//moves = false;
 				super.hitBottom(Contact, 0);
 				// when we do land on something, we stop our movement and set falling to false
 				velocity.x = 0;
 				falling = false;
 				landed = true;
+				
+				
 			}
+			
 		}
 		
 	}

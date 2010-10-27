@@ -25,6 +25,7 @@ package
 		private var wispBackGrp:FlxGroup;
 		private var wispFrontGrp:FlxGroup;
 		private var ghostgrp:FlxGroup;
+		public static var checkgrp:FlxGroup;
 		
 		public function PlayState() 
 		{
@@ -36,6 +37,7 @@ package
 			treegrp = add(new FlxGroup()) as FlxGroup;
 			leafgrp = add(new FlxGroup()) as FlxGroup;
 			wispFrontGrp = add(new FlxGroup()) as FlxGroup;
+			checkgrp = add(new FlxGroup()) as FlxGroup;
 			// build the tree!
 			BuildTree();
 			BuildLeaves();
@@ -52,11 +54,11 @@ package
 			
 			//lets seed the ground with some leaves already:
 			var tL:LeafBit;
-			for (var tY:int = FlxG.height -6; tY > FlxG.height - 8; tY--)
+			for (var tY:int = FlxG.height -6; tY > FlxG.height - 9; tY--)
 			{
 				for (var tX:int = -50; tX <= FlxG.width+50; tX++)
 				{
-					if (Rnd.boolean(0.5))
+					if (Rnd.boolean(0.8))
 					{
 						tL = leafgrp.add(new LeafBit(tX, tY, Rnd.integer(1, 2)) as LeafBit) as LeafBit;
 						tL.solid = true;
@@ -263,15 +265,15 @@ package
 			ground.collide(leafgrp);
 			
 			//randomly add new leaves from off the screen...
-			if (Rnd.boolean(0.01))
+			if (Rnd.boolean(0.025))
 				SpawnLeaf();
 			// random wisps
-			if (Rnd.boolean(0.01))
+			if (Rnd.boolean(0.05))
 				SpawnBackWisp();
 			if (Rnd.boolean(0.005))
 				SpawnFrontWisp();
 			// random ghosts
-			if (Rnd.boolean(0.001))
+			if (Rnd.boolean(0.0001))
 				SpawnGhost();
 			
 			super.update();
@@ -327,28 +329,17 @@ package
 			tL = leafgrp.getFirstAvail() as LeafBit;
 			var pos:FlxPoint = new FlxPoint(0,0);
 			if (wind > 0)
-			{
 				pos.x = -1;
-				pos.y = Rnd.integer( -FlxG.width, FlxG.width - 6);
-			}
 			else if (wind < 0)
-			{
 				pos.x = FlxG.width + 1;
-				pos.y = Rnd.integer( -FlxG.width, FlxG.width - 6);
-			}
 			else
 			{
 				if (Rnd.boolean())
-				{
 					pos.x = -1;
-					pos.y = Rnd.integer( -FlxG.width, FlxG.width - 6);
-				}
 				else
-				{
 					pos.x = FlxG.width + 1;
-					pos.y = Rnd.integer( -FlxG.width, FlxG.width - 6);
-				}
 			}
+			pos.y = Rnd.integer( 0, FlxG.height)-16;
 			if (tL != null)
 				tL.reset(pos.x,pos.y);
 			else
