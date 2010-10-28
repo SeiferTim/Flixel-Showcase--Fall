@@ -11,7 +11,7 @@ package
 	 
 	public class PlayState extends FlxState
 	{
-		private const versionNo:String = "2.0";
+		private const versionNo:String = "2.1";
 		public static var CRAZY_MODE:Boolean = false;
 		public static const WIND_MAX:Number = 10;
 		public static const CRAZY_WIND_MAX:Number = 15;
@@ -326,7 +326,7 @@ package
 			if (l.landed)
 			{
 				l.acceleration.y = l.weight*10;
-				l.velocity.y = -(10 / l.weight) * Rnd.float(0.8, 1.2);
+				l.velocity.y = -(10 / l.weight) * Rnd.float(0.8, 1.5);
 				l.velocity.x = Rnd.float( -50, 50);
 				l.falling = true;
 				l.landed = false;

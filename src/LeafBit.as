@@ -41,10 +41,10 @@ package
 			var m:Number = Math.ceil((Math.abs(Force) - weight) / 2);
 			var dir:int = Force / Math.abs(Force);
 			if (landed)
-			{
-				;			
+			{	
+				acceleration.y = weight*15;
 				//if we landed, then we can only move if the wind is strong, and if we're not under another leaf
-				if (onScreen())
+				if (x > -50 && x < FlxG.width+50)
 				{
 					velocity.x = ((dir * m) * Rnd.float(0.65, 0.95));
 					if (m > 2)
@@ -67,7 +67,6 @@ package
 						if (Rnd.boolean(0.01))
 						{
 							falling = true;
-							acceleration.y = weight*10;
 							solid = true;
 						}
 						else
@@ -81,6 +80,7 @@ package
 			else
 			{
 				// if we're falling, the velocity can randomly change, but it's based on the wind.
+				acceleration.y = weight*5;
 				velocity.x = ((dir * m) * Rnd.float(0.85, 1.15)) + Rnd.integer( -2, 2);
 				velocity.y += ((m * 0.5) * Rnd.float(-0.15, 0.15)) * Rnd.sign(0.3);
 			}
