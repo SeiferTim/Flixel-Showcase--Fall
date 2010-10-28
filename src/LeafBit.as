@@ -42,7 +42,7 @@ package
 			var dir:int = Force / Math.abs(Force);
 			if (landed)
 			{
-				acceleration.y = weight;			
+				;			
 				//if we landed, then we can only move if the wind is strong, and if we're not under another leaf
 				if (onScreen())
 				{
@@ -67,7 +67,7 @@ package
 						if (Rnd.boolean(0.01))
 						{
 							falling = true;
-							acceleration.y = weight;
+							acceleration.y = weight*10;
 							solid = true;
 						}
 						else

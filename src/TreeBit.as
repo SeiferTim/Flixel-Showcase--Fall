@@ -27,7 +27,10 @@ package
 			var dir:int = Force / Math.abs(Force);
 			// theres a change the branch will move, and if it doesn't it goes back to where it started
 			if (Rnd.boolean(Rnd.float(0.1, 0.3)) && m > 0)
-				x = init.x +(dir * Math.ceil(m/2));
+				if ((Math.ceil(m/2)) <=2)
+					x = init.x +(dir * Math.ceil(m / 2));
+				else
+					x = (init.x +2) * dir;
 			else
 				snapback();
 		}

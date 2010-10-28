@@ -21,39 +21,121 @@ package
 			y = Y;
 			ghostParts = new Array();
 			// our ghost is made up of smaller FlxSprites so that we have more control over alpha.
-			ghostParts.push(add(new FlxSprite(0, 0).createGraphic(5, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 1).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(2, 1).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(4, 1).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 2).createGraphic(5, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 3).createGraphic(2, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(3, 3).createGraphic(2, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 4).createGraphic(2, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(3, 4).createGraphic(2, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 5).createGraphic(5, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 6).createGraphic(5, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 7).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(2, 7).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(4, 7).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(0, 8).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(2, 8).createGraphic(1, 1, 0xffffffff)));
-			ghostParts.push(add(new FlxSprite(4, 8).createGraphic(1, 1, 0xffffffff)));
-			reset(X, Y);
+			ghostParts.push(add(new FlxSprite(x, y).createGraphic(5, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+1).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+2, y+1).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+4, y+1).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+2).createGraphic(5, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+3).createGraphic(2, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+3, y+3).createGraphic(2, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+4).createGraphic(2, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+3, y+4).createGraphic(2, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+5).createGraphic(5, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+6).createGraphic(5, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+7).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+2, y+7).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+4, y+7).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x, y+8).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x+2, y+8).createGraphic(1, 1, 0xffffffff)));
+			ghostParts.push(add(new FlxSprite(x + 4, y + 8).createGraphic(1, 1, 0xffffffff)));
+			
+			reset(x, y);
 		}
 		
 		override public function reset(X:Number, Y:Number):void
 		{
-			super.reset(X, Y);
+			
 			x = X;
 			y = Y;
-			var gP:FlxSprite;
 			// set each ghost part to be almost invisible.
-			for each (gP in ghostParts)
-				gP.alpha = 0.1;
+			for (var i:int = 0; i < ghostParts.length; i++)
+			{
+				switch(i)
+				{
+					case 0:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y;
+						break;
+					case 1:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+1;
+						break;
+					case 2:
+						ghostParts[i].x = x+2;
+						ghostParts[i].y = y+1;
+						break;
+					case 3:
+						ghostParts[i].x = x+4;
+						ghostParts[i].y = y+1;
+						break;
+					case 4:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+2;
+						break;
+					case 5:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+3;
+						break;
+					case 6:
+						ghostParts[i].x = x+3;
+						ghostParts[i].y = y+3;
+						break;
+					case 7:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+4;
+						break;
+					case 8:
+						ghostParts[i].x = x+3;
+						ghostParts[i].y = y+4;
+						break;
+					case 9:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+5;
+						break;
+					case 10:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+6;
+						break;
+					case 11:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+7;
+						break;
+					case 12:
+						ghostParts[i].x = x+2;
+						ghostParts[i].y = y+7;
+						break;
+					case 13:
+						ghostParts[i].x = x+4;
+						ghostParts[i].y = y+7;
+						break;
+					case 14:
+						ghostParts[i].x = x;
+						ghostParts[i].y = y+8;
+						break;
+					case 15:
+						ghostParts[i].x = x+2;
+						ghostParts[i].y = y+8;
+						break;
+					case 16:
+						ghostParts[i].x = x+4;
+						ghostParts[i].y = y+8;
+						break;
+				}
+				ghostParts[i].alpha = 0.1;
+				ghostParts[i].exists = true;
+				ghostParts[i].dead = false;
+				ghostParts[i].blend = "overlay";
+			}
+			super.reset(X, Y);
 			fading = false;
 			timer = 0;
-			velocity.y -= Rnd.float(16,24); // set random starting y velocity
+			velocity.y = -Rnd.float(24, 32); // set random starting y velocity
+			velocity.x = Rnd.float( -20, 20);
+			dead = false;
+			exists = true;
 		}
+		
+		
 		
 		override public function update():void
 		{
@@ -75,7 +157,7 @@ package
 							switch(i)
 							{
 								case 0:
-									ghostParts[i].alpha -= 0.15;
+									ghostParts[i].alpha -= 0.1;
 									break;
 								case 1:
 								case 2:
@@ -161,7 +243,7 @@ package
 						}
 					}					
 				}
-				velocity.x = Rnd.float(-2,2)/4; // we change x velocity randomly
+				//velocity.x = Rnd.float(-2,2)/4; // we change x velocity randomly
 				timer = FlxG.elapsed*3.5;
 			}
 			else
